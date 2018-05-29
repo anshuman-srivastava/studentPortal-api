@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
@@ -10,19 +11,19 @@ const db = knex ({
     host : '127.0.0.1',
     user : 'postgres',
     //Enter the password which you entered during postgres installation
-    password : '',
+    password : '1920Earth$$',
     //Whatever the database name be, replace it with 'spdb'
     database : 'spdb'
   }
 });
 
 const app = express();
-
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.json());
 
+
 app.get('/',(req,res)=>{
-	res.send(database.users);
+	res.send(database.use1);
 })
  
  //SIGN IN
@@ -33,7 +34,7 @@ app.post('/Login', (req,res) => {
 	  	 const isValid = bcrypt.compareSync(req.body.password, data[0].hash);
 	  	  	 if(isValid) {
 	  	 	return db.select('*').from('users')
-	  	 	.where('email','=',req.body.email)
+	  	 	.where('email','=',req.body.email && 'rollno')
 	  	 	.then(user => {
 	  	 		res.json(user[0])
 	  	 	})
@@ -93,6 +94,6 @@ app.get('/profile/:rollno',(req,res)=>{
 	.catch(err => res.status(400).json('error getting user'))
 })
 
-app.listen(4000,()=>{
-	console.log('app is running on port 4000');
+app.listen(3000,()=>{
+	console.log('app is running on port 3000');
 }) 
